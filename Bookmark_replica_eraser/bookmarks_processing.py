@@ -13,10 +13,10 @@ def main(filename):
     folders = get_folders_of_bookmarks(content)
     result = get_unique_bookmarks(folders)
 
-
     print(f"Found: {len(result)} unique bookmark(s)")
 
     save_pretty_json("pretty.json", result)
+
 
 def get_unique_bookmarks(folders_of_bookmarks):
     result = []
@@ -35,11 +35,10 @@ def get_unique_bookmarks(folders_of_bookmarks):
 
     return result
 
+
 def get_folders_of_bookmarks(content):
     return [
-        folder["children"]
-        for folder in content["children"]
-        if "children" in folder
+        folder["children"] for folder in content["children"] if "children" in folder
     ]
 
 
