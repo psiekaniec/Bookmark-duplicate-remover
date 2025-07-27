@@ -29,7 +29,6 @@ def main(filename):
 
 
 
-
-
 if __name__== "__main__":
-    main("bookmarks-2025-07-27.json")
+    filename = "bookmarks-2025-07-27.json"
+    main(filename)
