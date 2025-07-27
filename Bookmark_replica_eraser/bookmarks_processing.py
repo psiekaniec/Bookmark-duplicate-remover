@@ -7,8 +7,8 @@ def main(filename):
     target_path = os.path.join(os.getcwd(), filename)
     content = read_content(target_path)
 
-    save_pretty_json("pretty.json", content)
-    content = read_content("pretty.json")
+    save_pretty_json("pretty1.json", content)
+    content = read_content("pretty1.json")
 
     folders = get_folders_of_bookmarks(content)
     result = get_unique_bookmarks(folders)
@@ -43,7 +43,7 @@ def get_folders_of_bookmarks(content):
 
 
 def save_pretty_json(path, content):
-    with open("pretty.json", "w") as pretty:
+    with open(path, "w") as pretty:
         json.dump(content, pretty, indent=4, sort_keys=True)
 
 
