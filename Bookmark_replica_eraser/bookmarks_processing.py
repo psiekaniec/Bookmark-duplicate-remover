@@ -5,24 +5,24 @@ import os
 def main(filename):
     content = ""
     target_path = os.path.join(os.getcwd(), filename)
-    with open(target_path, "r") as file:
-        content = json.load(file)
+    content = read_content(target_path)
 
-    with open("pretty.json", "w") as pretty:
-        json.dump(content, pretty, indent=4, sort_keys=True)
+    save_pretty_json("pretty.json", content)
+    content = read_content("pretty.json")
 
-    with open("pretty.json", "r") as pretty:
-        content = json.load(pretty)
+    folders = get_folders_of_bookmarks(content)
+    result = get_unique_bookmarks(folders)
 
-    lists_of_bookmarks = [
-        dict_with_key
-        for dict_with_key in content["children"]
-        if "children" in dict_with_key
-    ]
+
+    print(f"Found: {len(result)} unique bookmark(s)")
+
+    save_pretty_json("pretty.json", result)
+
+def get_unique_bookmarks(folders_of_bookmarks):
     result = []
-    for l in lists_of_bookmarks:
+    for f in folders_of_bookmarks:
         try:
-            bookmarks = sorted(l["children"], key=lambda b: b["uri"])
+            bookmarks = sorted(f, key=lambda bookmark: bookmark["uri"])
             for i in range(len(bookmarks)):
                 if (
                     not bookmarks[i - 1]["uri"] == bookmarks[i]["uri"]
@@ -33,7 +33,26 @@ def main(filename):
         except KeyError:
             print(f"Invalid list of bookmarks")
 
-    print(result)
+    return result
+
+def get_folders_of_bookmarks(content):
+    return [
+        folder["children"]
+        for folder in content["children"]
+        if "children" in folder
+    ]
+
+
+def save_pretty_json(path, content):
+    with open("pretty.json", "w") as pretty:
+        json.dump(content, pretty, indent=4, sort_keys=True)
+
+
+def read_content(path):
+    with open(path, "r") as pretty:
+        content = json.load(pretty)
+
+    return content
 
 
 if __name__ == "__main__":
