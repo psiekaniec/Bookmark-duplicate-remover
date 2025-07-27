@@ -18,14 +18,14 @@ def main(filename):
     save_pretty_json("pretty.json", result)
 
 
-def get_unique_bookmarks(folders_of_bookmarks):
+def get_unique_bookmarks(folders_of_bookmarks, key="uri"):
     result = []
     for f in folders_of_bookmarks:
         try:
-            bookmarks = sorted(f, key=lambda bookmark: bookmark["uri"])
+            bookmarks = sorted(f, key=lambda bookmark: bookmark[key])
             for i in range(len(bookmarks)):
                 if (
-                    not bookmarks[i - 1]["uri"] == bookmarks[i]["uri"]
+                    not bookmarks[i - 1][key] == bookmarks[i][key]
                     or len(bookmarks) == 1
                 ):
                     result.append(bookmarks[i])
