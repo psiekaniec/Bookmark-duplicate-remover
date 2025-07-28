@@ -16,11 +16,11 @@ def main():
         content = read_content(output_path)
 
         folders = get_folders_of_bookmarks(content)
-        result = get_unique_bookmarks(folders)
+        unique = get_unique_bookmarks(folders)
 
-        print(f"Found: {len(result)} unique bookmark(s)")
+        print(f"Found: {len(unique)} unique bookmark(s)")
 
-        save_pretty_json(output_path, result, True)
+        save_pretty_json(output_path, unique, True)
 
     except ValueError as ve:
         sys.exit(ve.args[0])
