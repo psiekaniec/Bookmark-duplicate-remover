@@ -1,10 +1,29 @@
-import json, os, sys
+import json, os, re, sys
 
 
 def main():
+    pattern = r".+\.json"
+    while True:
+        try:
+            input_filename, output_filename = "", ""
+            if matched := re.search(
+                pattern, input("Input filename: ").rstrip(), re.IGNORECASE
+            ):
+                input_filename = matched.string
+            if matched := re.search(
+                pattern, input("Output filename: ").rstrip(), re.IGNORECASE
+            ):
+                output_filename = matched.string
+            if not input_filename:
+                raise TypeError("Fix input file name")
+            if not output_filename:
+                raise TypeError("Fix output file name")
+            break
+        except TypeError as te:
+            print(te.args[0])
+            continue
+
     try:
-        input_filename = input("Input filename: ")
-        output_filename = input("Output filename: ")
         input_path = os.path.join(os.getcwd(), input_filename)
         output_path = os.path.join(os.getcwd(), output_filename)
         if not os.path.isfile(input_path):
