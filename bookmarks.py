@@ -45,6 +45,12 @@ def main():
         sys.exit(ve.args[0])
 
 
+def get_folders_of_bookmarks(content):
+    return [
+        folder["children"] for folder in content["children"] if "children" in folder
+    ]
+
+
 def get_unique_bookmarks(folders_of_bookmarks, key="uri"):
     result = []
     for f in folders_of_bookmarks:
@@ -63,10 +69,12 @@ def get_unique_bookmarks(folders_of_bookmarks, key="uri"):
     return result
 
 
-def get_folders_of_bookmarks(content):
-    return [
-        folder["children"] for folder in content["children"] if "children" in folder
-    ]
+def read_content(path):
+    content = ""
+    with open(path, "r") as pretty:
+        content = json.load(pretty)
+
+    return content
 
 
 def save_pretty_json(path, content, final=False):
@@ -122,14 +130,6 @@ def save_pretty_json(path, content, final=False):
 
     with open(path, "w") as pretty:
         json.dump(content, pretty, indent=4, sort_keys=True)
-
-
-def read_content(path):
-    content = ""
-    with open(path, "r") as pretty:
-        content = json.load(pretty)
-
-    return content
 
 
 if __name__ == "__main__":
