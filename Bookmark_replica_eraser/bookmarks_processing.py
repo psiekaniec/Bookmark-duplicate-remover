@@ -1,21 +1,28 @@
-import json
-import os
+import json, os, sys
 
 
-def main(filename, output_filename="pretty.json"):
-    content = ""
-    target_path = os.path.join(os.getcwd(), filename)
-    content = read_content(target_path)
+def main(input, output="pretty.json"):
+    try:
+        input_path = os.path.join(os.getcwd(), input)
+        output_path = os.path.join(os.getcwd(), output)
+        if not os.path.isfile(input_path):
+            raise ValueError(f"{input_path} is not a file")
+        
+        content = read_content(input_path)
 
-    save_pretty_json(output_filename, content)
-    content = read_content(output_filename)
+        save_pretty_json(output_filename, content)
+        content = read_content(output_path)
 
-    folders = get_folders_of_bookmarks(content)
-    result = get_unique_bookmarks(folders)
+        folders = get_folders_of_bookmarks(content)
+        result = get_unique_bookmarks(folders)
 
-    print(f"Found: {len(result)} unique bookmark(s)")
+        print(f"Found: {len(result)} unique bookmark(s)")
 
-    save_pretty_json(output_filename, result, True)
+        save_pretty_json(output_path, result, True)
+        
+    except ValueError as ve:
+        sys.exit(ve.args[0])
+
 
 
 def get_unique_bookmarks(folders_of_bookmarks, key="uri"):
@@ -98,6 +105,7 @@ def save_pretty_json(path, content, final=False):
 
 
 def read_content(path):
+    content = ''
     with open(path, "r") as pretty:
         content = json.load(pretty)
 
@@ -105,5 +113,6 @@ def read_content(path):
 
 
 if __name__ == "__main__":
-    filename = "bookmarks-2025-07-27.json"
-    main(filename)
+    input_filename = input("Input filename: ")
+    output_filename = input("Output filename: ")
+    main(input_filename, output_filename)
