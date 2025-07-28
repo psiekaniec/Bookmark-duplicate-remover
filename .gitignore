@@ -1,5 +1,4 @@
 .venv
 *.json
 Arch
-../RemoteRepoCopy/
-../Repo_kurs_git/
+__pycache*
