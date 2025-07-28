@@ -43,6 +43,8 @@ def main():
 
     except ValueError as ve:
         sys.exit(ve.args[0])
+    except KeyError as ke:
+        sys.exit(f"Expected key {ke.args[0]} not found. Check input file.")
 
 
 def get_folders_of_bookmarks(content):
