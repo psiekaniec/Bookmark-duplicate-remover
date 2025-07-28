@@ -1,10 +1,12 @@
 import json, os, sys
 
 
-def main(input, output="pretty.json"):
+def main():
     try:
-        input_path = os.path.join(os.getcwd(), input)
-        output_path = os.path.join(os.getcwd(), output)
+        input_filename = input("Input filename: ")
+        output_filename = input("Output filename: ")
+        input_path = os.path.join(os.getcwd(), input_filename)
+        output_path = os.path.join(os.getcwd(), output_filename)
         if not os.path.isfile(input_path):
             raise ValueError(f"{input_path} is not a file")
         
@@ -22,7 +24,6 @@ def main(input, output="pretty.json"):
         
     except ValueError as ve:
         sys.exit(ve.args[0])
-
 
 
 def get_unique_bookmarks(folders_of_bookmarks, key="uri"):
@@ -113,6 +114,4 @@ def read_content(path):
 
 
 if __name__ == "__main__":
-    input_filename = input("Input filename: ")
-    output_filename = input("Output filename: ")
-    main(input_filename, output_filename)
+    main()
