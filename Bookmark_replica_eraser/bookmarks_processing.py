@@ -15,7 +15,7 @@ def main(filename, output_filename="pretty.json"):
 
     print(f"Found: {len(result)} unique bookmark(s)")
 
-    save_pretty_json(output_filename, result)
+    save_pretty_json(output_filename, result, True)
 
 
 def get_unique_bookmarks(folders_of_bookmarks, key="uri"):
@@ -45,11 +45,52 @@ def get_folders_of_bookmarks(content):
 def save_pretty_json(path, content, final=False):
     if final:
         content = {
-                "guid": "root________","id": 1,"index": 0,"root": "placesRoot","title": "","type": "text/x-moz-place-container","typeCode": 2,
-                "children": [{"guid": "menu________","id": 2,"index": 0,"root": "bookmarksMenuFolder","title": "menu","type": "text/x-moz-place-container","typeCode": 2},
-                             {"children": content,"guid": "toolbar_____","id": 3,"index": 1,"root": "toolbarFolder","title": "toolbar","type": "text/x-moz-place-container","typeCode": 2},
-                            {"guid": "unfiled_____","id": 5,"index": 3,"root": "unfiledBookmarksFolder","title": "unfiled","type": "text/x-moz-place-container","typeCode": 2},
-                    {"guid": "mobile______","id": 6,"index": 4,"root": "mobileFolder","title": "mobile","type": "text/x-moz-place-container","typeCode": 2}],
+            "guid": "root________",
+            "id": 1,
+            "index": 0,
+            "root": "placesRoot",
+            "title": "",
+            "type": "text/x-moz-place-container",
+            "typeCode": 2,
+            "children": [
+                {
+                    "guid": "menu________",
+                    "id": 2,
+                    "index": 0,
+                    "root": "bookmarksMenuFolder",
+                    "title": "menu",
+                    "type": "text/x-moz-place-container",
+                    "typeCode": 2,
+                },
+                {
+                    "children": content,
+                    "guid": "toolbar_____",
+                    "id": 3,
+                    "index": 1,
+                    "root": "toolbarFolder",
+                    "title": "toolbar",
+                    "type": "text/x-moz-place-container",
+                    "typeCode": 2,
+                },
+                {
+                    "guid": "unfiled_____",
+                    "id": 5,
+                    "index": 3,
+                    "root": "unfiledBookmarksFolder",
+                    "title": "unfiled",
+                    "type": "text/x-moz-place-container",
+                    "typeCode": 2,
+                },
+                {
+                    "guid": "mobile______",
+                    "id": 6,
+                    "index": 4,
+                    "root": "mobileFolder",
+                    "title": "mobile",
+                    "type": "text/x-moz-place-container",
+                    "typeCode": 2,
+                },
+            ],
         }
 
     with open(path, "w") as pretty:
