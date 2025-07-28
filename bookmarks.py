@@ -9,7 +9,7 @@ def main():
         output_path = os.path.join(os.getcwd(), output_filename)
         if not os.path.isfile(input_path):
             raise ValueError(f"{input_path} is not a file")
-        
+
         content = read_content(input_path)
 
         save_pretty_json(output_filename, content)
@@ -21,7 +21,7 @@ def main():
         print(f"Found: {len(result)} unique bookmark(s)")
 
         save_pretty_json(output_path, result, True)
-        
+
     except ValueError as ve:
         sys.exit(ve.args[0])
 
@@ -106,7 +106,7 @@ def save_pretty_json(path, content, final=False):
 
 
 def read_content(path):
-    content = ''
+    content = ""
     with open(path, "r") as pretty:
         content = json.load(pretty)
 
