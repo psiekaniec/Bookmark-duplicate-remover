@@ -81,7 +81,7 @@ def read_content(path):
 
 def save_pretty_json(path, content, final=False):
     if final:
-        content = {
+        final_content = {
             "guid": "root________",
             "id": 1,
             "index": 0,
@@ -129,9 +129,11 @@ def save_pretty_json(path, content, final=False):
                 },
             ],
         }
+    else:
+        final_content = content
 
     with open(path, "w") as pretty:
-        json.dump(content, pretty, indent=4, sort_keys=True)
+        json.dump(final_content, pretty, indent=4, sort_keys=True)
 
 
 if __name__ == "__main__":
