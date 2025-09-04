@@ -56,17 +56,17 @@ def get_folders_of_bookmarks(content):
 def get_unique_bookmarks(folders_of_bookmarks, key="uri"):
     result = []
     for f in folders_of_bookmarks:
-        try:
-            bookmarks = sorted(f, key=lambda bookmark: bookmark[key])
-            for i in range(len(bookmarks)):
-                if (
-                    not bookmarks[i - 1][key] == bookmarks[i][key]
-                    or len(bookmarks) == 1
-                ):
-                    result.append(bookmarks[i])
+        if len(f) > 1:      # if folder contains more than 1 dict, sorting is reasonable
+            try:
+                bookmarks = sorted(f, key=lambda bookmark: bookmark[key])
+                for i in range(len(bookmarks)-1):
+                    if not bookmarks[i + 1][key] == bookmarks[i][key]:
+                        result.append(bookmarks[i])
 
-        except KeyError:
-            print(f"Invalid list of bookmarks")
+            except KeyError:
+                print(f"Invalid list of bookmarks")
+        else:
+            result.append(f)
 
     return result
 
